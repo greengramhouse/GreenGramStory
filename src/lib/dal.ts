@@ -36,13 +36,3 @@ export const getUser = cache(async () => {
     return null;
   }
 });
-
-// ใช้สำหรับดึงแค่ Session (ไม่ต้อง Query Database) เพื่อความเร็วใน Layout/Navbar
-export const getSession = cache(async () => {
-  const cookieStore = await cookies();
-  const sessionToken = cookieStore.get("session")?.value;
-
-  if (!sessionToken) return null;
-
-  return await decrypt(sessionToken);
-});
