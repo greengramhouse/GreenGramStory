@@ -2,13 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { NavMenu } from "@/components/nav-menu";
 import { NavigationSheet } from "@/components/navigation-sheet";
-import { getUser } from "@/lib/dal"; // เรียกใช้ getUser เพื่อเช็ค session
+import { getSession } from "@/lib/dal"; // ดึงเฉพาะ Session (ไม่ยิง DB เพิ่อความเร็ว)
 import Link from "next/link";
 import { logoutAction } from "@/action/user";
 
 const Navbar = async () => {
-  // 1. ดึงข้อมูล User ฝั่ง Server
-  const user = await getUser();
+  // 1. ตรวจสอบแค่ Session ฝั่ง Server แทนการดึงจาก DB
+  const session = await getSession();
 
   return (
     <nav className="h-16 bg-background border-b">
@@ -20,7 +20,7 @@ const Navbar = async () => {
         <NavMenu className="hidden md:block" />
 
         <div className="flex items-center gap-3">
-          {user ? (
+          {session ? (
             // 3. ถ้า Login แล้ว แสดงปุ่ม Logout (ใช้ form action เรียก logoutAction)
             <form action={logoutAction}>
               <Button variant="outline" className="hidden sm:inline-flex">
