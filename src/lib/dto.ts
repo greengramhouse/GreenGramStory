@@ -4,22 +4,24 @@ import { prisma } from "@/lib/prisma";
 
 // ... (ฟังก์ชัน getBlogListDTO ของเดิม) ...
 export async function getBlogListDTO() {
-  const user = await getUser();
-  const isPrivilegedUser = user && (['admin', 'vip'].includes(user.role));
+  const [user, blogs] = await Promise.all([
+    getUser(),
+    prisma.post.findMany({
+      where: { published: true },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        thumbnail: true,
+        isVipOnly: true,
+        createdAt: true,
+        users: { select: { name: true } },
+      },
+      orderBy: { createdAt: 'desc' }
+    })
+  ]);
 
-  const blogs = await prisma.post.findMany({
-    where: { published: true },
-    select: {
-      id: true,
-      title: true,
-      content: true,
-      thumbnail: true,
-      isVipOnly: true,
-      createdAt: true,
-      users: { select: { name: true } },
-    },
-    orderBy: { createdAt: 'desc' }
-  });
+  const isPrivilegedUser = user && (['admin', 'vip'].includes(user.role));
 
   return blogs.map((blog) => {
     const canViewContent = !blog.isVipOnly || isPrivilegedUser;
@@ -38,23 +40,25 @@ export async function getBlogListDTO() {
 
 // ✅ เพิ่มฟังก์ชันนี้สำหรับดึงบทความเดียว
 export async function getBlogPostDTO(id: string) {
-  const user = await getUser();
-  const isPrivilegedUser = user && (['admin', 'vip'].includes(user.role));
-
-  const blog = await prisma.post.findUnique({
-    where: { id },
-    select: {
-      id: true,
-      title: true,
-      content: true,
-      thumbnail: true,
-      isVipOnly: true,
-      createdAt: true,
-      users: { select: { name: true } },
-    },
-  });
+  const [user, blog] = await Promise.all([
+    getUser(),
+    prisma.post.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        thumbnail: true,
+        isVipOnly: true,
+        createdAt: true,
+        users: { select: { name: true } },
+      },
+    })
+  ]);
 
   if (!blog) return null;
+
+  const isPrivilegedUser = user && (['admin', 'vip'].includes(user.role));
 
   const canViewContent = !blog.isVipOnly || isPrivilegedUser;
 

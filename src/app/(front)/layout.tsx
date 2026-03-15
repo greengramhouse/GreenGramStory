@@ -1,13 +1,5 @@
 import type { Metadata } from "next";
-import { Chakra_Petch } from "next/font/google";
 import Navbar from "@/components/navbar";
-import { Toaster } from "@/components/ui/sonner";
-
-const chakra = Chakra_Petch({
-  variable: "--font-chakra",
-  subsets: ["latin", "thai"],
-  weight: ["300", "400", "500", "600", "700"],
-});
 
 export const metadata: Metadata = {
   title: "blogs-gukkghu",
@@ -19,13 +11,10 @@ export default function FrontLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // ลบ <html> และ <body> ออก
-  // ใช้ <div> หรือ <section> ห่อหุ้มแทน เพื่อรับ Class และ Font
   return (
-    <div className={`${chakra.className} antialiased flex flex-col min-h-screen`}>
+    <>
       <Navbar />
       {children}
-      <Toaster />
-    </div>
+    </>
   );
 }
