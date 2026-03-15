@@ -8,7 +8,7 @@ import Image from "next/image";
 export default async function BlogPage() {
   // 1. เรียกใช้ DTO โดยตรง (ทำงานฝั่ง Server เท่านั้น)
   const blogs = await getBlogListDTO();
-  console.log(blogs)
+  // console.log(blogs)
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-12">
