@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 const chakra = Chakra_Petch({
   variable: "--font-chakra",
   subsets: ["latin", "thai"], // 
-  weight: ["300", "400", "500", "600", "700"], // เลือกความหนาที่ต้องการใช้
+  weight: ["400", "600", "700"], // ลดขนาด font bundle โดยเลือกเฉพาะที่จำเป็น
 });
 
 
