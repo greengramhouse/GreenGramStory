@@ -64,9 +64,11 @@ export default async function BlogPage() {
                     <p className="text-sm text-gray-500 font-medium">เนื้อหานี้สำหรับสมาชิก VIP</p>
                   </div>
                 ) : (
-                  <p className="text-gray-600 text-sm line-clamp-3">
-                    {stripHtml(blog.content || "")}
-                  </p>
+                  <div className="space-y-2 py-2">
+                    <div className="h-3 w-full bg-gray-50 rounded animate-pulse opacity-50"></div>
+                    <div className="h-3 w-5/6 bg-gray-50 rounded animate-pulse opacity-50"></div>
+                    <div className="h-3 w-4/6 bg-gray-50 rounded animate-pulse opacity-50"></div>
+                  </div>
                 )}
               </div>
 

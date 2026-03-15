@@ -11,7 +11,7 @@ export async function getBlogListDTO() {
       select: {
         id: true,
         title: true,
-        content: true,
+        // content: true, // 🚀 ไม่ดึงเนื้อหาเต็มเพื่อความเร็ว
         thumbnail: true,
         isVipOnly: true,
         createdAt: true,
@@ -24,6 +24,8 @@ export async function getBlogListDTO() {
   const isPrivilegedUser = user && (['admin', 'vip'].includes(user.role));
 
   return blogs.map((blog) => {
+    // ในหน้า List เราไม่เอา content ไปแสดงผล (หรืออาจจะเอาไปแค่ snippet สั้นๆ)
+    // แต่เพื่อความเร็วสูงสุด เราจะเช็คแค่ lock status
     const canViewContent = !blog.isVipOnly || isPrivilegedUser;
     return {
       id: blog.id,
@@ -32,7 +34,7 @@ export async function getBlogListDTO() {
       authorName: blog.users?.name || 'Unknown',
       createdAt: blog.createdAt,
       isVipOnly: blog.isVipOnly,
-      content: canViewContent ? blog.content : null,
+      content: null, // 🚀 ปิดไว้สำหรับหน้า List
       isLocked: !canViewContent 
     };
   });
