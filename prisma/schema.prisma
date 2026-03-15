@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model users {
+  id         Int        @id @default(autoincrement())
+  name       String     @db.VarChar(100)
+  email      String     @unique(map: "email") @db.VarChar(150)
+  password   String     @db.VarChar(255)
+  role       users_role @default(user)
+  created_at DateTime?  @default(now()) @db.DateTime(0)
+  updated_at DateTime?  @default(now()) @db.DateTime(0)
+  Post       Post[]
+}
+
+model Post {
+  id        String   @id
+  title     String
+  content   String   @db.LongText
+  thumbnail String?
+  isVipOnly Boolean  @default(false)
+  published Boolean  @default(true)
+  authorId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  users     users    @relation(fields: [authorId], references: [id])
+
+  @@index([authorId], map: "Post_authorId_fkey")
+}
+
+enum users_role {
+  admin
+  user
+  vip
+}
