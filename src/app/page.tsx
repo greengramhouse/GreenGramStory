@@ -1,4 +1,4 @@
-import Hero from "@/components/hero";
+import { GlassmorphismPortfolioBlock } from "@/components/glassmorphism-portfolio-block-shadcnui";
 import { getUser } from "@/lib/dal";
 
 export default async function HomePage() {
@@ -12,16 +12,12 @@ export default async function HomePage() {
 
   return (
     <main>
-      <Hero
-        version="gukkghu Block v.01"
+      <GlassmorphismPortfolioBlock
+        badgeText="gukkghu Block v.01"
         title={`ยินดีต้อนรับคุณ ${user ? user.name : ""} สู่ Block Gukkghu`}
-        pretitle="คลังสะสมผลงาน Web Developer สาย Full Stack..."
-        
-        // ✅ ใช้ตัวแปรที่เตรียมไว้
-        btnLink={linkDestination} 
-        btnText={buttonLabel} // ส่งข้อความปุ่มไปด้วย (ต้องไปแก้ใน Hero ด้วยนะ)
-        
-        btnsecondary={false}
+        description="คลังสะสมผลงาน Web Developer สาย Full Stack... ผมพร้อมรับงาน Freelance และสร้างสรรค์ Web Application ที่ใช้งานได้จริง"
+        ctaLink={linkDestination}
+        ctaText={buttonLabel}
       />
     </main>
   );

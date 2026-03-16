@@ -23,16 +23,16 @@ export const NavMenu = (props: ComponentProps<typeof NavigationMenu>) => (
           <Link href="/blog">Blog</Link>
         </NavigationMenuLink>
       </NavigationMenuItem>
-      <NavigationMenuItem>
+      {/* <NavigationMenuItem>
         <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
           <Link href="/about">About</Link>
         </NavigationMenuLink>
-      </NavigationMenuItem>
-      <NavigationMenuItem>
+      </NavigationMenuItem> */}
+      {/* <NavigationMenuItem>
         <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-          <Link href="/contact">Contact Us</Link>
+          <Link href="/contact">ตัวตนของฉัน</Link>
         </NavigationMenuLink>
-      </NavigationMenuItem>
+      </NavigationMenuItem> */}
     </NavigationMenuList>
   </NavigationMenu>
 );

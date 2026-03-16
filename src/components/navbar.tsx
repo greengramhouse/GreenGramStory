@@ -36,7 +36,7 @@ const Navbar = async () => {
             </Link>
           )}
 
-          <Button>Get Started</Button>
+          {/* <Button>Get Started</Button> */}
 
           {/* Mobile Menu */}
           <div className="md:hidden">
